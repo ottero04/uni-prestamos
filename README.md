@@ -11,6 +11,17 @@ Sistema de préstamos de libros y equipos universitarios construido con Docker C
 ## Levantar el proyecto
 Ejecutar "docker compose up --build" en la raíz del proyecto.
 
+## Comandos
+
+| Comando | Cuándo usarlo |
+|---|---|
+| `docker compose up --build` | Primera vez o cuando modificas código |
+| `docker compose up` | Cuando ya está construido y solo quieres arrancarlo |
+| `docker compose stop` | Para detener sin eliminar los contenedores |
+| `docker compose down` | Para detener y eliminar los contenedores |
+
+Abrir en el navegador: http://localhost:8080
+
 ## Integrantes
 
 - Robinson Andrés Ottero
