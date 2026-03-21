@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  # Servicio Frontend - Interfaz web con Nginx
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - prestamos-network
+
+  # Servicio Backend - API REST con Node.js/Express
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_USER=prestamos_user
+      - MYSQL_PASSWORD=prestamos_password
+      - MYSQL_DATABASE=uniprestamos
+    restart: always
+    networks:
+      - prestamos-network
+
+  # Servicio de Base de Datos - MySQL 8
+  database:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=uniprestamos
+      - MYSQL_USER=prestamos_user
+      - MYSQL_PASSWORD=prestamos_password
+    restart: always
+    networks:
+      - prestamos-network
+
+# Red compartida para comunicación entre servicios
+networks:
+  prestamos-network:
+    driver: bridge
