@@ -1,0 +1,396 @@
+/* ============================
+   Variables y Reset
+   ============================ */
+
+/* variables globales de color y estilo reutilizables en todo el CSS */
+:root {
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+    --color-secondary: #64748b;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --color-background: #f1f5f9;
+    --color-surface: #ffffff;
+    --color-text: #1e293b;
+    --color-text-light: #64748b;
+    --color-border: #e2e8f0;
+    --radius: 8px;
+    /* sombra sutil para elementos normales */
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    /* sombra mas pronunciada para el header */
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* reset basico para eliminar margenes y paddings por defecto del navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+    /* garantiza que el footer siempre quede al fondo aunque el contenido sea corto */
+    min-height: 100vh;
+}
+
+/* ============================
+   Header
+   ============================ */
+.header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ============================
+   Main Container
+   ============================ */
+.main-container {
+    max-width: 900px;
+    /* centra el contenido horizontalmente en pantallas grandes */
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    /* espacio uniforme entre las secciones de la pagina */
+    gap: 1.5rem;
+}
+
+/* ============================
+   Cards
+   ============================ */
+.card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-border);
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    padding-bottom: 0.75rem;
+    /* linea divisoria debajo del titulo de cada seccion */
+    border-bottom: 2px solid var(--color-border);
+}
+
+/* header de la card de prestamos activos que tiene titulo y boton en la misma linea */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-header h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* ============================
+   Formulario
+   ============================ */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    /* transicion suave al enfocar el campo */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* resalta el campo activo con borde azul y sombra suave */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--color-text-light);
+}
+
+/* ============================
+   Botones
+   ============================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* boton principal para acciones importantes como registrar */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* boton secundario para acciones como actualizar lista */
+.btn-secondary {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-border);
+}
+
+/* boton de devolucion, mas pequeño porque va dentro de cada tarjeta de prestamo */
+.btn-danger {
+    background-color: var(--color-danger);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+/* ============================
+   Lista de Préstamos
+   ============================ */
+.lista-prestamos {
+    margin-top: 1rem;
+}
+
+.loading {
+    text-align: center;
+    color: var(--color-text-light);
+    padding: 2rem;
+}
+
+/* tarjeta individual de cada prestamo activo */
+.prestamo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    background-color: var(--color-background);
+    /* flex-wrap permite que el boton baje si la pantalla es pequeña */
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* flex:1 hace que la info ocupe todo el espacio disponible dejando el boton al final */
+.prestamo-info {
+    flex: 1;
+}
+
+.prestamo-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.prestamo-info p {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    margin-top: 0.25rem;
+}
+
+/* etiqueta de tipo de articulo con forma de pastilla */
+.prestamo-tipo {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    /* border-radius muy alto genera la forma de pastilla */
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+/* colores distintos segun el tipo de articulo prestado */
+.tipo-libro {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.tipo-equipo {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.tipo-revista {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+/* mensaje cuando no hay prestamos registrados */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-light);
+}
+
+.empty-state p {
+    font-size: 1rem;
+}
+
+/* ============================
+   Estado del Sistema
+   ============================ */
+.status-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+/* fila de cada servicio con su nombre y su estado */
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-background);
+    border-radius: var(--radius);
+}
+
+.status-label {
+    font-weight: 500;
+}
+
+/* pastilla de estado con colores segun si esta activo, inactivo o verificando */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-inactive {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status-checking {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* ============================
+   Mensajes
+   ============================ */
+
+/* oculto por defecto, app.js le agrega la clase success o error para mostrarlo */
+.mensaje {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    display: none;
+}
+
+.mensaje.success {
+    display: block;
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.mensaje.error {
+    display: block;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* ============================
+   Footer
+   ============================ */
+.footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    margin-top: 2rem;
+}
+
+.footer p {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.25rem;
+}
+
+/* ============================
+   Responsive
+   ============================ */
+
+/* ajustes para pantallas menores a 600px como celulares */
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    /* en movil el titulo y el boton quedan en columna en vez de fila */
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* en movil la info del prestamo y el boton devolver quedan apilados */
+    .prestamo-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
