@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPrestamos - Sistema de Prestamos Universitarios</title>
+    <!-- estilos separados en styles.css para mantener el HTML limpio -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>UniPrestamos</h1>
+            <p>Sistema de Gestion de Prestamos - Biblioteca Universitaria</p>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <!-- Seccion de Registro de Prestamos -->
+        <section class="card">
+            <h2>Registrar Nuevo Prestamo</h2>
+            <!-- el submit es manejado por app.js para evitar recarga de pagina -->
+            <form id="form-prestamo">
+                <div class="form-group">
+                    <label for="estudiante">Nombre del Estudiante</label>
+                    <input type="text" id="estudiante" name="estudiante" required placeholder="Ej: Juan Perez">
+                </div>
+                <div class="form-group">
+                    <label for="item">Articulo a Prestar</label>
+                    <input type="text" id="item" name="item" required placeholder="Ej: Libro de Calculo">
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo de Articulo</label>
+                    <!-- las opciones coinciden con el ENUM definido en la tabla MySQL -->
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccione...</option>
+                        <option value="libro">Libro</option>
+                        <option value="equipo">Equipo</option>
+                        <option value="revista">Revista</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_devolucion">Fecha de Devolucion</label>
+                    <!-- la fecha minima se establece dinamicamente desde app.js -->
+                    <input type="date" id="fecha_devolucion" name="fecha_devolucion" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Prestamo</button>
+            </form>
+            <!-- aqui app.js muestra mensajes de exito o error al registrar -->
+            <div id="mensaje-registro" class="mensaje"></div>
+        </section>
+
+        <!-- Seccion de Lista de Prestamos -->
+        <section class="card">
+            <div class="card-header">
+                <h2>Prestamos Activos</h2>
+                <button id="btn-actualizar" class="btn btn-secondary">Actualizar Lista</button>
+            </div>
+            <!-- este div es llenado dinamicamente por app.js con los datos del backend -->
+            <div id="lista-prestamos" class="lista-prestamos">
+                <p class="loading">Cargando prestamos...</p>
+            </div>
+        </section>
+
+        <!-- Seccion de Estado del Sistema -->
+        <section class="card">
+            <h2>Estado del Sistema</h2>
+            <div class="status-container">
+                <!-- el frontend siempre esta activo si esta seccion carga -->
+                <div class="status-item">
+                    <span class="status-label">Frontend (Nginx)</span>
+                    <span id="status-frontend" class="status-badge status-active">Activo</span>
+                </div>
+                <!-- el estado del backend y la base de datos lo verifica app.js -->
+                <div class="status-item">
+                    <span class="status-label">Backend (Node.js)</span>
+                    <span id="status-backend" class="status-badge status-checking">Verificando...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Base de Datos (MySQL)</span>
+                    <span id="status-database" class="status-badge status-checking">Verificando...</span>
+                </div>
+            </div>
+            <button id="btn-verificar" class="btn btn-secondary">Verificar Conexiones</button>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>UniPrestamos - Taller Docker Compose</p>
+    </footer>
+
+    <!-- app.js va al final para que el HTML cargue antes de ejecutar el JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
